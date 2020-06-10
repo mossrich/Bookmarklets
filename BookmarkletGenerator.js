@@ -13,26 +13,25 @@
 javascript:(function(){
 newwin = window.open('', 'codewin', 'HEIGHT=250,WIDTH=600,resizable=1');
 var doc = newwin.document;
-doc.title = 'Bookmarklet Generator';
-doc.write('Drag the link for the form to your bookmarks toolbar<br/><table>');
+doc.write('Drag the link for the form to your bookmarks toolbar<br/>');
 for(var f=0; f < document.forms.length; f++){
-	if(document.forms[f].elements.length > 0) {
-		var formName = document.forms[f].id ? document.forms[f].id : 'form ' + f;
-		doc.write('<a href="javascript:(function(){f=document.forms[' + f + '];');
-		var formValues = '';
-		for(var i=0; i < document.forms[f].elements.length; i++) {
-			var e = document.forms[f].elements[i];
-			if(!e.name || e.type == "hidden" || e.type == "submit" ) continue;
-			if( e.type == "radio" && e.checked ) {
-				formValues += 'f[\'' + e.name + '\'].checked=true';
-			}else {
-				var value = e.value;value = value.replace('"', '\\"');
-				formValues += 'f[\'' + e.name + '\'].value=\''+value+'\'';
-			}
-			formValues += ';\n';
+	var formName = document.forms[f].id ? document.forms[f].id : 'form ' + f;
+	doc.write();
+	var formValues = '';
+	for(var i=0; i < document.forms[f].elements.length; i++) {
+		var e = document.forms[f].elements[i];
+		if(!e.name || e.type == "hidden" || e.type == "submit" || e.type == "button" || e.type == "reset" ) continue;
+		if(e.type == "radio" && e.checked ) {
+			formValues += 'f[\'' + e.name + '\'].checked=true';
+		}else {
+			var value = e.value;value = value.replace('"', '\\"');
+			formValues += 'f[\'' + e.name + '\'].value=\''+value+'\'';
 		}
-		doc.write(formValues + '})()">' + formName + '</a><br/>' + formValues + '<br/><br/>' );
+		formValues += ';\n';
 	}
+	if(formValues.length > 0)
+	   doc.write('<a href="javascript:(function(){f=document.forms[' + f + '];' + formValues + '})()">' + formName + '</a><br/>' + formValues.replace(';',';<br/>') + '<br/><br/>' );
 }
+doc.title = 'Bookmarklet Generator';
 doc.close();
 newwin.focus();})()
