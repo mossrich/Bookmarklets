@@ -7,7 +7,7 @@
 // Make sure 'javascript:' is preserved at the beginning of the URL
 
 javascript: (function(n,e,L){
-  if(window.document.getElementsByClassName('el-input__inner').length==0){
+  if(!window.document || window.document.getElementsByClassName('el-input__inner').length==0){
     window.location = L
   }else{ 
     var inputs=window.document.getElementsByClassName('el-input__inner');
