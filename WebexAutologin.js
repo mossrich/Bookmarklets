@@ -17,5 +17,5 @@ javascript: (function(n,e,L){
     evt.initEvent('input', true, true);
     inputs[0].dispatchEvent(evt);
     inputs[1].dispatchEvent(evt);
-    setTimeout(window.document.getElementsByClassName('el-button')[5].click(), 2000);}}
+    setTimeout(window.document.getElementsByClassName('el-button')[3].click(), 2000);}}
 )('My Name','Email.Address@example.com','https://www.webex.com/meet/yourURLhere')
